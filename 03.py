@@ -1,0 +1,10 @@
+nome = input('digite o nome do aluno: ')
+n1 = float(input('digite o valor da primeira nota de {}: '. format(nome)))
+p1 = float(input('digite o valor do peso da primeira nota: ' ))
+n2 = float(input('digite o valor da segunda nota de {}: '. format(nome)))
+p2 = float(input('digite o valor do peso da segunda nota: ' ))
+n3 = float(input('digite o valor da terceira nota de {}: '. format(nome)))
+p3 = float(input('digite o valor do peso da terceira nota: ' ))
+media = ((n1*p1)+(n2*p2)+(n3*p3))/(p1+p2+p3)
+print('a media ponderada da nota de {} equivale a {}'. format (nome,media))
+

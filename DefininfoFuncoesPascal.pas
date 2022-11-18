@@ -3,7 +3,8 @@ program funcoes;
     type vetor = array [1..TAM] of integer;
     var
     v : vetor;
-    k,i : integer;
+    k,i, num : integer;
+    med : real;
     
     {function soma (a,b : real) : real;
         begin
@@ -57,10 +58,20 @@ program funcoes;
                 writeln(num,' x ',i,' = ',num*i);
                 writeln;
         end;
+    function media_vetor(vet:vetor): real;
+        var i,soma : integer;
+            begin
+                soma:=0;
+                    for i:=1 to TAM do
+                        soma:=soma+vet[i];
+                media_vetor:=soma/TAM
+            end;
 begin
     le_vetor(v);
     classifica(v);
-    exibe_vetor(v);
+    med:=media_vetor(v);
+    exibe_vetor(v); 
+    writeln('Media dos valores : ', med:0:2);
     readln();
     {Tabuada
     write('Tabuada de ? ');

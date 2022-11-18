@@ -50,11 +50,22 @@ program funcoes;
                 
             
         end;
+    procedure tabuada(num : integer);
+        var i : integer;
+        begin
+            for i:=1 to 10 do
+                writeln(num,' x ',i,' = ',num*i);
+                writeln;
+        end;
 begin
     le_vetor(v);
     classifica(v);
     exibe_vetor(v);
     readln();
+    {Tabuada
+    write('Tabuada de ? ');
+    readln(num);
+    tabuada(num);
+    readln;}
   
 end.
-

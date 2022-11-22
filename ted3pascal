@@ -1,0 +1,82 @@
+{ TED 3 }
+program ted3;
+const
+  TAM = 35;
+type
+  aluno = record
+            nome : string;
+            sexo : char;
+            g1, g2, med, freq : real;
+            aulas : integer;
+          end;
+var
+   turma : array[1..TAM] of aluno;
+   ind, na, aula, apr, rep : integer;
+   sexo, resp : char;
+   nota, maior_med : real;
+begin
+   { entrada de dados }
+   na:=0;
+   writeln('Informe os dados dos alunos: ');
+   repeat
+     na:=na+1;
+     writeln('Informe os dados do aluno ',na,': ');
+     write('Nome do aluno : '); readln(turma[na].nome);
+     repeat
+       write('Sexo do aluno : '); readln(sexo);
+       sexo:=upcase(sexo);
+       if (sexo<>'M') and (sexo<>'F')
+          then writeln('Sexo invalido. Digite M ou F.')
+     until (sexo='M') or (sexo='F');
+     turma[na].sexo:=sexo;
+     repeat
+       write('Nota G1 do aluno : '); readln(nota);
+       if (nota<0) or (nota>10)
+          then writeln('Nota invalida. Digite um valor entre 0 e 10.')
+     until (nota>=0) and (nota<=10);
+     turma[na].g1:=nota;
+     repeat
+       write('Nota G2 do aluno : '); readln(nota);
+       if (nota<0) or (nota>10)
+          then writeln('Nota invalida. Digite um valor entre 0 e 10.')
+     until (nota>=0) and (nota<=10);
+     turma[na].g2:=nota;
+     turma[na].med:=(turma[na].g1+turma[na].g2)/2;
+     repeat
+       write('Aulas assistidas do aluno : '); readln(aula);
+       if (aula<0) or (aula>20)
+          then writeln('Numero de aulas invalido. Digite um valor entre 0 e 20.')
+     until (aula>=0) and (aula<=20);
+     turma[na].aulas:=aula;
+     turma[na].freq:=(aula/20)*100;
+     repeat
+       write('Deseja continuar (S/N) ? '); readln(resp);
+       resp:=upcase(resp);
+       if (resp<>'S') and (resp<>'N')
+          then writeln('Resposta invalida. Digite S ou N.');
+     until (resp='S') or (resp='N');
+   until (na=TAM) or (resp='N');
+   { alunos com a melhor media }
+   maior_med := -1;
+   for ind:=1 to na do
+     if turma[ind].med > maior_med
+        then maior_med:=turma[ind].med;
+   writeln;
+   writeln('A maior media da turma foi ',maior_med:0:2);
+   writeln('Quem obteve essa media foi:');
+   for ind:=1 to na do
+     if turma[ind].med = maior_med
+        then writeln(turma[ind].nome);
+   { informa a quantidade de alunos aprovados e reprovados }
+   apr:=0;
+   rep:=0;
+   for ind:=1 to na do
+     if (turma[ind].med>= 8) and (turma[ind].freq >= 75)
+        then apr:=apr+1
+        else rep:=rep+1;
+   writeln;
+   writeln('Quantidade de alunos aprovados : ',apr);
+   writeln('Quantidade de alunos reprovados : ',rep);
+   readln;
+end.
+

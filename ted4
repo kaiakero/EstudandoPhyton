@@ -1,0 +1,79 @@
+program funcoes;
+    const TAM =5;
+    type 
+        produto = record
+    
+            nome : string;
+            preco : real;
+            codigo : integer;
+            quantidade : integer;
+        end;
+    var
+        prod : array[1..TAM] of produto;
+        k,i, num : integer;
+        med : real;
+    
+ 
+    procedure troca(var va, vb : integer);
+        var aux : integer;
+        begin
+            aux := vb;
+            vb := va;
+            va := aux;
+        end;    
+    
+    procedure le_vetor (var prod : produto; cont : integer );
+        var i : integer;
+        
+        begin 
+        cont:=0;   
+            for i := 1 to TAM do
+                begin
+                    writeln('Informe o nome do',i,'°   produto');
+                    readln(prod.nome[i]);
+                    writeln('Informe o preco do',i,'°   produto');
+                    readln(prod.preco[i]);
+                    writeln('Informe o codigo do',i,'°   produto');
+                    readln(prod.codigo[i]);
+                    writeln('Informe a quantidade em estoque do',i,'°   produto');
+                    readln(prod.quantidade[i]);
+                    cont := cont + 1
+                end;
+        end;  
+    procedure exibe_vetor (prod : produto);
+        var i : integer;
+        begin
+            writeln('Valores armazenados');
+            for i := 1 to TAM do
+                writeln('v[',i,']= ',prod[i]);
+        end;
+    procedure classifica (var prod : produto);
+        begin
+            for k:=1 to tam do
+                for i:=1 to TAM-1 do
+                    if prod[i] > v[i+1] then
+                        troca(prod[i],prod[i+1]);
+                        
+                    
+                
+            
+        end;
+
+    function media_vetor(prod:produto): real;
+        var i,soma : integer;
+            begin
+                soma:=0;
+                    for i:=1 to TAM do
+                        soma:=soma+prod.preco[i];
+                media_vetor:=soma/TAM
+            end;
+begin
+    
+    le_vetor(prod);
+    classifica(prod);
+    med:=media_vetor(prod);
+    exibe_vetor(prod); 
+    writeln('Media dos valores : ', med:0:2);
+    readln();
+
+end.

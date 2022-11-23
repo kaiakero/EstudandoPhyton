@@ -22,22 +22,21 @@ program funcoes;
             va := aux;
         end;    
     
-    procedure le_vetor (var prod : produto; cont : integer );
-        var i : integer;
+    procedure le_vetor (var prod : produto; cont, i : integer );
         
         begin 
         cont:=0;   
             for i := 1 to TAM do
                 begin
                     writeln('Informe o nome do',i,'°   produto');
-                    readln(prod.nome[i]);
+                    readln (prod[i].nome);
                     writeln('Informe o preco do',i,'°   produto');
-                    readln(prod.preco[i]);
+                    readln (prod[i].preco);
                     writeln('Informe o codigo do',i,'°   produto');
-                    readln(prod.codigo[i]);
+                    readln (prod[i].codigo);
                     writeln('Informe a quantidade em estoque do',i,'°   produto');
-                    readln(prod.quantidade[i]);
-                    cont := cont + 1
+                    readln(prod[i].quantidade);
+                    cont := cont + 1;
                 end;
         end;  
     procedure exibe_vetor (prod : produto);
@@ -45,7 +44,7 @@ program funcoes;
         begin
             writeln('Valores armazenados');
             for i := 1 to TAM do
-                writeln('v[',i,']= ',prod[i]);
+                writeln('v[',i,']= ',prod[i].nome);
         end;
     procedure classifica (var prod : produto);
         begin
@@ -64,16 +63,16 @@ program funcoes;
             begin
                 soma:=0;
                     for i:=1 to TAM do
-                        soma:=soma+prod.preco[i];
+                        soma:=soma+prod[i].preco;
                 media_vetor:=soma/TAM
             end;
 begin
     
     le_vetor(prod);
-    classifica(prod);
+    {classifica(prod);
     med:=media_vetor(prod);
     exibe_vetor(prod); 
     writeln('Media dos valores : ', med:0:2);
-    readln();
+    readln();}
 
 end.

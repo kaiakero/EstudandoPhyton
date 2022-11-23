@@ -1,0 +1,62 @@
+program funcoes;
+    const TAM =2;
+    type produto = record   
+                    nome : string;
+                    preco : real;
+                    codigo : integer;
+                    quantidade : integer;
+                end;
+        VET = array [1..TAM] of produto;
+    var
+        prod : VET;
+        k,i, num, cont : integer;
+        med : real;
+
+    procedure le_vetor (var prod : VET; cont, i : integer );
+        
+        begin 
+        cont:=0;   
+            for i := 1 to TAM do
+                begin
+                    writeln('Informe o nome do ',i,'°   produto');
+                    readln (prod[i].nome);
+                    writeln('Informe o preco do ',i,'°   produto');
+                    readln (prod[i].preco);
+                    writeln('Informe o codigo do ',i,'°   produto');
+                    readln (prod[i].codigo);
+                    writeln('Informe a quantidade em estoque do ',i,'°   produto');
+                    readln(prod[i].quantidade);
+                    cont := cont + 1;
+                end;
+        end; 
+    procedure exibe_vetor (prod : VET);
+        var i : integer;
+        begin
+            writeln('Valores armazenados');
+            for i := 1 to TAM do
+                begin
+                    writeln('nome do ',i,'° produto ',prod[i].nome);
+                    writeln('preco do ',i,'° produto R$',prod[i].preco:0:2);
+                    writeln('codigo do ',i,'° produto ',prod[i].codigo);
+                    writeln('quantidade do ',i,'° produto ',prod[i].quantidade);
+                end;
+        end;
+    function media_vetor(prod:VET): real;
+        var i : integer;
+            soma : real;
+            begin
+                soma:=0;
+                    for i:=1 to TAM do
+                        soma:=soma+prod[i].preco;
+                media_vetor:=soma/TAM
+            end;
+begin
+    
+    le_vetor(prod,cont,i);
+    exibe_vetor(prod);
+    med:=media_vetor(prod);
+    writeln('Media de precos dos produtos: R$', med:0:2);
+    readln();
+
+
+end.      

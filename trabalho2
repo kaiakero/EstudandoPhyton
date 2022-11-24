@@ -12,9 +12,10 @@ type
     VET = array[1..TAM] of funcionario;            
 var
     func : VET;
-    cont, i, fcargo : integer;
+    cont, i, fcargo, posfunc : integer;
     resp : char;
     media : real;
+    ffuncionario: string;
     
     procedure le_vetor (var func : VET; var i : integer);
         begin 
@@ -40,15 +41,25 @@ var
                 begin
                     ind :=0;
                     soma:=0;
+                    
                         for x:=1 to i do
                             if func[x].cargo = fcargo then
+                                begin
                                     ind := ind + 1;
-                                    soma:=soma+func[x].salario;
-                                    
-                    writeln('soma',soma);  
-                    writeln('indice',ind);
-                    media_vetor:=soma/ind
+                                    soma:= soma + func[x].salario;
+                                end;   
+                    media_vetor:=soma/ind;
                 end;
+
+        function procura_vetor(func : VET; ffuncionario : string;i : integer): integer;
+            var x : integer;
+                begin
+                        for x:=1 to i do
+                            if func[x].nome = ffuncionario then
+                                procura_vetor := x;
+                                    
+
+                end;                
 
     procedure exibe_vetor (func : VET);
         var i : integer;
@@ -57,27 +68,32 @@ var
             for i := 1 to TAM do
                 begin
                     writeln('nome do ',i,'° funcionario ',func[i].nome);
-                    writeln('preco do ',i,'° funcionario R$',func[i].salario:0:2);
+                    writeln('salario do ',i,'° funcionario R$',func[i].salario:0:2);
                     writeln('cargo do ',i,'° funcionario ',func[i].cargo);
                 end; 
         end;
 
-
-
-
-
-
-
 begin
     i:=0;
     le_vetor(func,i);
+    writeln('--------------------------------------------');
     writeln('informe o cargo que voce deseja a media salarial');
-    writeln(i);
     readln(fcargo);
+    writeln('--------------------------------------------');
     media := media_vetor(func,fcargo,i);
-    writeln('media',media);
-    exibe_vetor(func);
-    
+    writeln('media salarial do cargo n°',fcargo, ' é de: R$',media:0:2);
+    writeln('--------------------------------------------');
+    writeln('informe o nome do funcionario que voce deseja buscar');
+    readln(ffuncionario);
+    writeln('--------------------------------------------');
+    posfunc := procura_vetor(func,ffuncionario,i);
+    if posfunc = 0 then writeln('o funcionario nao esta registrado nesta empresa ')
+    else
+        writeln('posicao do funcionario: ',posfunc);
+        writeln('--------------------------------------------');
+        writeln('salario do funcionario: ',func[posfunc].salario:0:2);
+        writeln('--------------------------------------------');
+        writeln('cargo do funcionario: ',func[posfunc].cargo);
     readln();
     
 

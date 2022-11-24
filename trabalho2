@@ -18,37 +18,35 @@ var
     
     procedure le_vetor (var func : VET; var i : integer);
         begin 
-
-        
-
             repeat
+                
+                
                 i := i + 1;
-                
-                
-                    writeln('Informe o nome do ',i,'°   funcionario');
-                    readln (func[i].nome);
-                    writeln('Informe o salario do ',i,'°   funcionario');
-                    readln (func[i].salario);
-                    writeln('Informe o cargo do ',i,'°   funcionario');
-                    readln (func[i].cargo);
-                    writeln('deseja continuar? S/N');
-                    readln (resp);
-                until (cont = TAM) or (resp = 'N');
+                writeln('Informe o nome do ',i,'°   funcionario');
+                readln (func[i].nome);
+                writeln('Informe o salario do ',i,'°   funcionario');
+                readln (func[i].salario);
+                writeln('Informe o cargo do ',i,'°   funcionario');
+                readln (func[i].cargo);
+                writeln('deseja continuar? S/N');
+                readln (resp);
+            until (cont = TAM) or (resp = 'N');
         end;
         
         function media_vetor(func : VET; fcargo : integer;i : integer): real;
-            var x, b, ind : integer;
+            var x, ind : integer;
                 soma : real;
                 
                 begin
                     ind :=0;
                     soma:=0;
-                        for x:=1 to TAM do
-                            if func[i].cargo = fcargo then
-                                for b:=1 to TAM do
+                        for x:=1 to i do
+                            if func[x].cargo = fcargo then
                                     ind := ind + 1;
-                                    soma:=soma+func[i].salario;
-                                
+                                    soma:=soma+func[x].salario;
+                                    
+                    writeln('soma',soma);  
+                    writeln('indice',ind);
                     media_vetor:=soma/ind
                 end;
 
@@ -60,7 +58,7 @@ var
                 begin
                     writeln('nome do ',i,'° funcionario ',func[i].nome);
                     writeln('preco do ',i,'° funcionario R$',func[i].salario:0:2);
-                    writeln('codigo do ',i,'° funcionario ',func[i].cargo);
+                    writeln('cargo do ',i,'° funcionario ',func[i].cargo);
                 end; 
         end;
 
@@ -74,13 +72,13 @@ begin
     i:=0;
     le_vetor(func,i);
     writeln('informe o cargo que voce deseja a media salarial');
+    writeln(i);
     readln(fcargo);
-    media := media_vetor(func,i,fcargo);
-    writeln(media);
+    media := media_vetor(func,fcargo,i);
+    writeln('media',media);
     exibe_vetor(func);
     
     readln();
     
 
 end.
-

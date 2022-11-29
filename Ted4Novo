@@ -1,23 +1,22 @@
 program funcoes;
-    const TAM =2;
+    var TAM : integer;
     type produto = record   
                     nome : string;
                     preco : real;
                     codigo : integer;
                     quantidade : integer;
                 end;
-        VET = array [1..TAM] of produto;
+        VET = array [1..150] of produto;
     var
         prod : VET;
-        k,i, num, cont : integer;
+        k,i, num : integer;
         med : real;
 
-    procedure le_vetor (var prod : VET; cont, i : integer );
-        
+    procedure le_vetor (var prod : VET;  var i : integer );
+        var resp : string;
         begin 
-        cont:=0;   
-            for i := 1 to TAM do
-                begin
+            repeat
+                    i := i + 1;
                     writeln('Informe o nome do ',i,'°   produto');
                     readln (prod[i].nome);
                     writeln('Informe o preco do ',i,'°   produto');
@@ -26,19 +25,23 @@ program funcoes;
                     readln (prod[i].codigo);
                     writeln('Informe a quantidade em estoque do ',i,'°   produto');
                     readln(prod[i].quantidade);
-                    cont := cont + 1;
-                end;
+                    writeln('deseja informar mais produtos? (S/N)');
+                    readln(resp);
+                    writeln('-----------------------------------------------------');
+            until (i=150) or (resp = 'N');
+                
         end; 
-    procedure exibe_vetor (prod : VET);
-        var i : integer;
+    procedure exibe_vetor (prod : VET; i : integer);
+        var k : integer;
         begin
             writeln('Valores armazenados');
-            for i := 1 to TAM do
+            for k := 1 to i do
                 begin
-                    writeln('nome do ',i,'° produto ',prod[i].nome);
-                    writeln('preco do ',i,'° produto R$',prod[i].preco:0:2);
-                    writeln('codigo do ',i,'° produto ',prod[i].codigo);
-                    writeln('quantidade do ',i,'° produto ',prod[i].quantidade);
+                    writeln('nome do ',k,'° produto ',prod[k].nome);
+                    writeln('preco do ',k,'° produto R$',prod[k].preco:0:2);
+                    writeln('codigo do ',k,'° produto ',prod[k].codigo);
+                    writeln('quantidade do ',k,'° produto ',prod[k].quantidade);
+                    writeln('-----------------------------------------------------');
                 end;
         end;
     function media_vetor(prod:VET): real;
@@ -50,11 +53,40 @@ program funcoes;
                         soma:=soma+prod[i].preco;
                 media_vetor:=soma/TAM
             end;
+    procedure troca(var va, vb : produto);
+        var aux : produto;
+            begin
+                aux := vb;
+                vb := va;
+                va := aux;
+            end; 
+    procedure classifica (var prod:VET);
+        begin
+            for k:=1 to TAM do
+                for i:=1 to TAM-1 do
+                    if prod[i].preco < prod[i+1].preco then
+                        troca(prod[i+1],prod[i]);
+            writeln('o produto com o maior preco é: ', prod[1].nome);
+            writeln('o produto com o segundo maior preco é: ', prod[2].nome);
+            writeln('o produto com o terceiro maior preco é: ', prod[3].nome);
+            writeln('-----------------------------------------------------');
+        end;
+    procedure em_falta (var prod:VET; i:integer);
+        var  a : integer;
+        begin
+            for a:=1 to i do
+                if prod[a].quantidade = 0 then
+                    writeln('o produto: ',prod[a].nome,' esta em falta no estoque e deve ser abastecido!');
+                    writeln('-----------------------------------------------------------------------------');
+
+        end;    
 begin
-    
-    le_vetor(prod,cont,i);
-    exibe_vetor(prod);
+    TAM := 150;
+    le_vetor(prod,i);
+    exibe_vetor(prod,i);
     med:=media_vetor(prod);
+    em_falta(prod,i);
+    classifica(prod);
     writeln('Media de precos dos produtos: R$', med:0:2);
     readln();
 

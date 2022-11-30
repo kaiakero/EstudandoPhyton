@@ -1,0 +1,70 @@
+program trab2;
+const TAM = 35;
+
+type
+    funcionario = record
+                  nome : string;
+                  salario : real;
+                  
+                end;
+    VET = array[1..TAM] of funcionario;            
+var
+    func : VET;
+    cont, i, posfunc : integer;
+    resp : char;
+    media : real;
+    ffuncionario: string;
+    
+    procedure le_vetor (var func : VET; var i : integer);
+        begin 
+            repeat
+                
+                i := i + 1;
+                writeln('Informe o nome do ',i,'°   funcionario');
+                readln (func[i].nome);
+                writeln('Informe o salario do ',i,'°   funcionario');
+                readln (func[i].salario);
+                writeln('deseja continuar? S/N');
+                readln (resp);
+            until (cont = TAM) or (resp = 'N');
+        end;
+        
+        function media_vetor(func : VET;i : integer): real;
+            var x, ind : integer;
+                soma : real;
+                
+                begin
+                    ind :=0;
+                    soma:=0;
+                    
+                        for x:=1 to i do
+                                begin
+                                    ind := ind + 1;
+                                    writeln('salario ',func[x].salario:0:2);
+                                    soma:= soma + func[x].salario;
+                                end;
+                    writeln('soma ',soma:0:2);
+                    writeln(ind);
+                    media_vetor:=soma/ind;
+                end;
+        procedure em_falta (var func:VET; i:integer; media:real);
+            var  a : integer;
+            begin
+                for a:=1 to i do
+                    if func[a].salario < media then
+                        begin
+                            writeln('o funcionario: ',func[a].nome,' ganha menos do que a media salarial da empresa');
+                            writeln('com o salario de: R$',func[a].salario:0:2);
+                            writeln('-----------------------------------------------------------------------------');
+                        end;
+            end;
+
+begin
+    i:=0;
+    le_vetor(func,i);
+    writeln('--------------------------------------------');
+    media := media_vetor(func,i);
+    writeln('media salarial da empresa é de: R$ ',media:0:2);
+    em_falta(func,i,media);
+    readln();
+end.

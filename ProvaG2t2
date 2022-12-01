@@ -1,0 +1,85 @@
+
+program trab2;
+const TAM = 5;
+
+type
+    pessoa = record
+                  nome : string;
+                  idade : integer;
+                  categoria : string;
+                  curso : char;
+                  
+            end;
+    VET = array[1..TAM] of pessoa;
+    var 
+        v : VET;
+        i:integer;
+        med:real;
+        curso_procurado : string;
+        mais_velha,ind : integer;
+    
+    
+    procedure le_vetor (var v : VET; var i : integer);
+        var resp : char;
+            begin 
+                repeat
+                    i := i + 1;
+                    writeln('Informe o nome da ',i,'°   pessoa a entrar na biblioteca');
+                    readln(v[i].nome);
+                    writeln('Informe a idade da ',i,'°   pessoa a entrar na biblioteca');
+                    readln(v[i].idade);
+                    writeln('Informe a categoria da ',i,'°   pessoa a entrar na biblioteca');
+                    readln(v[i].categoria);
+                    writeln('Informe o curso da ',i,'°   pessoa a entrar na biblioteca');
+                    readln(v[i].curso);                
+                    writeln('deseja continuar? S/N');
+                    writeln('-------------------------------------------------------------------')
+                    readln(resp);
+                until (i = TAM) or (resp = 'N');
+            end;
+    function media(v : VET; i : integer):real;
+        var
+            k, cont_aluno : integer;
+            begin
+                cont_aluno:=0;
+                for k:=1 to i do
+                    if v[k].categoria = 'A' then
+                        cont_aluno := cont_aluno + 1;
+                    media:= (cont_aluno / i) * 100
+            end;
+ 
+    function procura_curso(v:VET; curso_procurado : string; i: integer):integer;
+        var 
+            indice, k :integer;
+            
+        begin
+            indice:=0;
+            for k:=1 to TAM do
+                if v[k].curso = curso_procurado then
+                    if v[k].idade > mais_velha then
+                        begin
+                            mais_velha := v[k].idade;
+                            indice  := k;
+                        end;
+            procura_curso := indice;
+        end;            
+
+                        
+begin
+    i:=0;
+    mais_velha:=0;
+    le_vetor(v,i);
+    med := media(v,i);
+    writeln('infrome o nome do curso no qual voce deseja identificar a pessoa mais velha: ');
+    readln(curso_procurado);
+    ind := procura_curso(v,curso_procurado,i);
+    writeln('-------------------------------------------------------------------')
+    if  ind > 0 then
+         writeln('a pessoa mais velha do curso: ',curso_procurado, ' é: ', v[ind].nome)
+    else
+        writeln('nao tivemos pessoas do curso', curso_procurado, ' frequentando a biblioteca');
+    writeln(med:0:2,'% das pessoas que entraram na biblioteca eram alunos');
+end.
+    
+
+    
